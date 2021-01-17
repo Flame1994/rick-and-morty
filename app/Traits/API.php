@@ -4,12 +4,13 @@ namespace App\Traits;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
 
 /**
  */
 trait API
 {
+    use Response;
+
     /**
      * @return string
      * @throws Exception
@@ -43,16 +44,12 @@ trait API
      */
     protected function request(string $method, $url)
     {
-        Log::info($url);
         try {
             $client = new Client();
-            $response = json_decode($client->request($method, $url)->getBody()->getContents(), true);
 
-            Log::info('Got a response');
-            return $response;
+            return json_decode($client->request($method, $url)->getBody()->getContents(), true);
         } catch (GuzzleException $exception) {
-            Log::info('No response');
-            return null;
+            return $this->error($exception->getMessage());
         }
     }
 }
