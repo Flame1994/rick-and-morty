@@ -30,6 +30,8 @@ class CharacterRepository implements Repository
 
     /**
      * @param $allId
+     *
+     * @return mixed
      */
     public function show($allId)
     {

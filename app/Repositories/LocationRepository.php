@@ -3,7 +3,6 @@ namespace App\Repositories;
 
 use App\Models\Location;
 use App\Services\CharacterService;
-use Illuminate\Support\Facades\Log;
 
 /**
  */
@@ -45,13 +44,13 @@ class LocationRepository implements Repository
     }
 
     /**
-     * @param $id
+     * @param $allId
      *
      * @return mixed
      */
-    public function show($id)
+    public function show($allId)
     {
-        $result = $this->location->show($id);
+        $result = $this->location->show($allId);
 
         $result['residents'] = $this->determineAllCharacterInformationByLocation($result);
 

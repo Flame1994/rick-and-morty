@@ -44,13 +44,13 @@ class EpisodeRepository implements Repository
     }
 
     /**
-     * @param $id
+     * @param $allId
      *
      * @return mixed
      */
-    public function show($id)
+    public function show($allId)
     {
-        $result = $this->episode->show($id);
+        $result = $this->episode->show($allId);
 
         $result['characters'] = $this->determineAllCharacterInformationByEpisode($result);
 
