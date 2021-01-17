@@ -15,6 +15,13 @@ class RatingsAPI
     protected const BASE_URL = 'https://www.omdbapi.com/';
 
     /**
+     * Filter constants.
+     */
+    protected const API_FILTER_SERIES_CODE_KEY = 'i';
+    protected const API_FILTER_SERIES_CODE = 'tt2861424';
+    protected const API_FILTER_API_KEY = 'apikey';
+
+    /**
      * @return string
      */
     protected function baseUrl(): string
@@ -28,8 +35,8 @@ class RatingsAPI
     private function apiFilterConstants()
     {
         return [
-            'i' => 'tt2861424',
-            'apikey' => env('OMDBAPI_API_KEY'),
+            self::API_FILTER_SERIES_CODE_KEY => self::API_FILTER_SERIES_CODE,
+            self::API_FILTER_API_KEY => env('OMDBAPI_API_KEY'),
         ];
     }
 
