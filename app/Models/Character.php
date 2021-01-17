@@ -19,13 +19,13 @@ class Character extends Model
     }
 
     /**
-     * @param $id
+     * @param $allId
      *
      * @return mixed
      */
-    public function show($id)
+    public function show($allId)
     {
-        return $this->rickAndMortyAPI->get($this->resource(), $id);
+        return $this->rickAndMortyAPI->get($this->resource(), $allId);
     }
 
     /**
