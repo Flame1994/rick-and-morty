@@ -1,62 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Rick And Morty
+Using the API: https://rickandmortyapi.com/ we show specific information requested for the interview process.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deployment
+This app has been deployed to **Heroku**. You can view the demo [here](https://rhaarhoff-rickandmorty.herokuapp.com/).
 
-## About Laravel
+## Requirements
+There are a few things needed in order to setup this project.
+- PHP
+- Apache / Nginx
+- **[Composer](https://getcomposer.org/)**
+- **[Laravel](https://laravel.com/docs/8.x/installation)**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation
+First, clone this repository and navigate to the directory where it has been downloaded. Follow the instructions below:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Run the Composer installation
+```jshelllanguage
+$ composer install
+```
+- Create a `.env` file
+```jshelllanguage
+$ cp .env.example .env 
+```
+- Update the `.env` file with all needed information. A `OMDBAPI` key is required in order to access
+an api. Make sure to visit **[here](https://www.omdbapi.com/)** to get a key.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Implementation
 
-## Learning Laravel
+### Summary
+**Laravel**, which is a MVC (Model View Controller) framework is used in this implementation, alongside a **Service** and **Repository** design pattern. 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Communication through the API happens over a simple JSON based protocol over HTTP.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The implementation is comunicating with two external API's:
 
-## Laravel Sponsors
+- **[RickAndMortyApi](https://rickandmortyapi.com/)** for information related to characters, episodes and locations.
+- **[OMDBAPI](https://www.omdbapi.com/)** For information about the series, episode ratings, etc.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Models
+Custom Models were created that map to resources being called on the rick and morty API. These
+models use the api's in order to get their information.
 
-### Premium Partners
+### Controllers
+Controllers are responsible for controlling the flow of the application over the HTTP requests. 
+A request will link to a function within a specified controller, which will then be passed along to a **Service**.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+### Services
+Incoming requests input and responses are all handled by a Service.
+The services are written in such a way that the Eloquent ORM is never used, making it available for other resources to 
+work with, such as API's. Thus, we use a Repository to retrieve the information.
 
-## Contributing
+### Repositories
+A Repository is an abstraction of the data layer and a centralised way of handling our models. 
+The idea with this pattern is to have a generic abstract way for the app to work with the data 
+layer without being bothered with if the implementation is towards a local database or towards an online API. In this case
+we have no local database using Eloquent models, but external API's.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## API
+These are the current API routes that are available. You can view them in the `api.php` file in the `routes` folder.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+To access these routes, simply use the `/api/` prefix on the url. Some examples:
+```jshelllanguage
+https://rhaarhoff-rickandmorty.herokuapp.com/api/locations
+https://rhaarhoff-rickandmorty.herokuapp.com/api/locations?page=2
+https://rhaarhoff-rickandmorty.herokuapp.com/api/locations?dimension=C-137
+https://rhaarhoff-rickandmorty.herokuapp.com/api/characters
+https://rhaarhoff-rickandmorty.herokuapp.com/api/episodes
+``` 
+```
+ +--------+----------+---------------------+------+-----------------------------------------------+------------+
+ | Domain | Method   | URI                 | Name | Action                                        | Middleware |
+ +--------+----------+---------------------+------+-----------------------------------------------+------------+
+ |        | GET|HEAD | /                   |      | Closure                                       | web        |
+ |        | GET|HEAD | api/characters      |      | App\Http\Controllers\CharacterController@all  | api        |
+ |        | GET|HEAD | api/characters/{id} |      | App\Http\Controllers\CharacterController@show | api        |
+ |        | GET|HEAD | api/episodes        |      | App\Http\Controllers\EpisodeController@all    | api        |
+ |        | GET|HEAD | api/episodes/{id}   |      | App\Http\Controllers\EpisodeController@show   | api        |
+ |        | GET|HEAD | api/locations       |      | App\Http\Controllers\LocationController@all   | api        |
+ |        | GET|HEAD | api/locations/{id}  |      | App\Http\Controllers\LocationController@show  | api        |
+ +--------+----------+---------------------+------+-----------------------------------------------+------------+
+```
