@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Support\Facades\Log;
-
 /**
  */
 class Episode extends Model
@@ -54,6 +52,11 @@ class Episode extends Model
         return $results;
     }
 
+    /**
+     * @param $episode
+     *
+     * @return mixed
+     */
     private function getEpisodeDetails($episode)
     {
         $episodeString = $episode['episode'];
