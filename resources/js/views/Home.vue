@@ -43,6 +43,19 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-btn
+            href="https://github.com/Flame1994/rick-and-morty"
+            target="_blank"
+            class="mx-2 github-button"
+            fab
+            dark
+            small
+            color="accent"
+        >
+            <v-icon dark>
+                mdi-github
+            </v-icon>
+        </v-btn>
     </v-main>
 </template>
 
@@ -70,5 +83,13 @@
 </script>
 
 <style scoped>
+    .github-button {
+        position: absolute;
+        top: 15px;
+        right: 0;
+    }
 
+    .github-button:hover {
+        text-decoration: none;
+    }
 </style>
