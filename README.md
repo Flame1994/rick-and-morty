@@ -1,5 +1,5 @@
 # Rick And Morty
-Using the API: https://rickandmortyapi.com/ we show specific information requested for the interview process.
+Using the API: https://rickandmortyapi.com/ we show specific information regarding the characters, locations and more.
 
 ## Deployment
 This app has been deployed to **Heroku**. You can view the demo [here](https://rhaarhoff-rickandmorty.herokuapp.com/).
